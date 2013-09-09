@@ -42,8 +42,7 @@ page.onInitialized = function() {
                     'description': 'Shockwave Flash 11.7 r700',
                     'filename': 'libpepflashplayer.so',
                     'name': 'Shockwave Flash'
-                },
-                '1' : {
+                }, '1' : {
                     'description': 'This plugin allows you to securely access other computers that have been shared with you. To use this plugin you must first install the <a href=\'https://chrome.google.com/remotedesktop\'>Chrome Remote Desktop</a> webapp.',
                     'filename': 'internal-remoting-viewer',
                     'name': 'Chrome Remote Desktop Viewer'
