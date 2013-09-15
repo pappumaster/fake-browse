@@ -4,8 +4,6 @@ import httplib2
 
 resp, content = httplib2.Http().request("http://ec2-54-211-182-91.compute-1.amazonaws.com:8080/fetchProfiles")
 
-#print content
-
 try:
     f = open(".browserProfiles.json", "w")
     try:
