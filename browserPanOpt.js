@@ -16,8 +16,7 @@ try {
 }
 browseObject = browseArray[Math.floor(Math.random()*browseArray.length)];
 
-page.settings.userAgent = browseObject.userAgent;
-
+page.settings.userAgent = browseObject.navigator.userAgent;
 page.onConsoleMessage = function(msg) {
 	console.log(msg);
 };
@@ -25,47 +24,22 @@ page.onConsoleMessage = function(msg) {
 page.onInitialized = function() {
     var returnVal = page.evaluate(function (browseObject) {
 	(function () {
-	    var plugins = navigator.plugins;
-            
-            navigator = {
-                appCodeName: navigator.appCodeName,
-                appName: navigator.appName,
-                appVersion: navigator.appVersion,
-                cookieEnabled: navigator.cookieEnabled,
-                doNotTrack: navigator.doNotTrack,
-                geolocation: navigator.geolocation,
-                language: browseObject.language,
-                mimeTypes: navigator.mimeTypes,
-                onLine: navigator.onLine,
-                platform: navigator.platform,
-                plugins: navigator.plugins,
-                product: navigator.product,
-                productSub: navigator.productSub,
-                userAgent: browseObject.userAgent,
-                vendor: navigator.vendor,
-                vendorSub: navigator.vendorSub,
-                __proto__: navigator.__proto__
-            };
-
-            screen = {
-            	width : browseObject.width,
-            	availHeight : screen.availHeight,
-            	height : browseObject.height,
-            	availWidth : screen.availWidth,
-            	availLeft : screen.availLeft,
-            	colorDepth : browseObject.colorDepth,
-            	pixelDepth : screen.pixelDepth
-            };
-
-            var pluginObj = {};
-            pluginObj.length = Object.keys(browseObject.plugins).length;
-            Object.keys(browseObject.plugins).forEach(function(key) {
-            	pluginObj[key] = browseObject.plugins[key];
-            });
-            pluginObj.refresh = plugins.refresh;
-            pluginObj.item = plugins.item;
-            pluginObj.namedItem = plugins.namedItem;
-            navigator.plugins = pluginObj;
+            var plugins = navigator.plugins;
+	    var mimeTypes = navigator.mimeTypes;
+            var geolocation = navigator.geolocation;
+            var webkitPersistentStorage = navigator.webkitPersistentStorage;
+	    var webkitTemporaryStorage = navigator.webkitTemporaryStorage; 
+            var __proto__ = navigator.__proto__;
+            navigator = browseObject.navigator;
+	    navigator.geolocation = geolocation;
+	    navigator.webkitPersistentStorage = webkitPersistentStorage;
+	    navigator.webkitTemporaryStorage = webkitTemporaryStorage;
+            navigator.plugins.refresh = plugins.refresh;
+            navigator.plugins.item = plugins.item;
+            navigator.plugins.namedItem = plugins.namedItem;
+	    navigator.mimeTypes.item = mimeTypes.item;
+	    navigator.mimeTypes.namedItem = mimeTypes.namedItem;
+	    screen = browseObject.screen;
 	})();
     }, browseObject);
 };
